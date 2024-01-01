@@ -1,4 +1,6 @@
-const { sum, substract, multiply, divide } = require('./02-math');
+const {
+  sum, substract, multiply, divide,
+} = require('./02-math');
 // For consistency
 test('Summing 2 + 2 should not to be equal to 5', () => {
   expect(sum(2, 2)).not.toBe(5);
