@@ -9,7 +9,7 @@ describe('Testing the Person class', () => {
 
   test('Should return IMC down', () => {
     // const person = new Person('Juli', 45, 1.7);
-    // Local arrange
+    // Local Arrange
     person.weight = 45;
     // Act
     const imcObtained = person.calculateIMC();
@@ -19,8 +19,11 @@ describe('Testing the Person class', () => {
 
   test('Should return IMC normal', () => {
     // const person = new Person('Lion', 59, 1.7);
+    // Local Arrange
     person.weight = 59;
+    // Act
     const imcObtained = person.calculateIMC();
+    // Assert
     expect(imcObtained).toBe('normal');
   });
 });
