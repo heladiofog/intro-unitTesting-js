@@ -9,3 +9,7 @@
 ## Paquetes instalados:
 - ESLint: `npm i --save-dev eslint`
 - Jest: `npm i --save-dev jest`
+
+## Custom script execution
+- `npm test -- --coverage`
+- `npm test -- <file_names>`
