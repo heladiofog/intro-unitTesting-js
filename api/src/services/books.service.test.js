@@ -7,18 +7,24 @@ const fakeBooks = [
   { id: 3, title: 'Game of Thrones' },
 ];
 
+// BDD => with spies
+const mockSpyGetAll = jest.fn();
+
 // The stub or the implementation of the mock
-const MongoLibStub = {
-  getAll: () => [...fakeBooks],
-  create: () => {},
-};
+// const MongoLibStub = {
+//   getAll: spyGetAll,
+//   create: () => {},
+// };
 
 // Mocking
 jest.mock(
   '../lib/mongo.lib.js', // the module
   // explicit module factory instead of automocking
-  // () => jest.fn().mockImplementation(() => MongoLibStub),
-  () => jest.fn(() => MongoLibStub), // module factory instead of automocking
+  () => jest.fn().mockImplementation(() => ({
+    getAll: mockSpyGetAll,
+    create: () => {},
+  })),
+  // () => jest.fn(() => MongoLibStub), // module factory instead of automocking
 );
 
 describe('Testing the Book Service', () => {
@@ -36,22 +42,28 @@ describe('Testing the Book Service', () => {
 
   test('Should return the book list (getBooks).', async () => {
     // Arrange
-
+    mockSpyGetAll.mockResolvedValue(fakeBooks);
     // Act
     const books = await bookService.getBooks({});
     console.log(books);
     // Assert
     // expect(books).toHaveLength(2);
     expect(books.length).toEqual(2);
+    expect(mockSpyGetAll).toHaveBeenCalled();
+    expect(mockSpyGetAll).toHaveBeenCalledTimes(1);
+    expect(mockSpyGetAll).toHaveBeenCalledWith('books', {});
   });
 
   test('Should return the book list (getBooks), again.', async () => {
     // Arrange
+    mockSpyGetAll.mockResolvedValue([
+      { id: 1, title: 'José Trigo' },
+    ]);
     // Act
     const books = await bookService.getBooks({});
     console.log(books);
     // Assert
-    // expect(books).toHaveLength(2);
-    expect(books[1].title).toEqual('Game of Thrones');
+    expect(books).toHaveLength(1);
+    expect(books[0].title).toEqual('José Trigo');
   });
 });
