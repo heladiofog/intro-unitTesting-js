@@ -1,21 +1,9 @@
+const { generateBooks } = require('../fakes/books.fake');
 const BooksService = require('./books.service');
-// MongoLin es la dependencia de BooksService
-
-// Fakes
-const fakeBooks = [
-  { id: 1, title: 'Harry Potter' },
-  { id: 3, title: 'Game of Thrones' },
-];
-
 // BDD => with spies
 const mockSpyGetAll = jest.fn();
 
-// The stub or the implementation of the mock
-// const MongoLibStub = {
-//   getAll: spyGetAll,
-//   create: () => {},
-// };
-
+// MongoLib es la dependencia de BooksService
 // Mocking
 jest.mock(
   '../lib/mongo.lib.js', // the module
@@ -23,8 +11,7 @@ jest.mock(
   () => jest.fn().mockImplementation(() => ({
     getAll: mockSpyGetAll,
     create: () => {},
-  })),
-  // () => jest.fn(() => MongoLibStub), // module factory instead of automocking
+  }))
 );
 
 describe('Testing the Book Service', () => {
@@ -42,13 +29,14 @@ describe('Testing the Book Service', () => {
 
   test('Should return the book list (getBooks).', async () => {
     // Arrange
+    const fakeBooks = generateBooks(15);
     mockSpyGetAll.mockResolvedValue(fakeBooks);
     // Act
     const books = await bookService.getBooks({});
     console.log(books);
     // Assert
     // expect(books).toHaveLength(2);
-    expect(books.length).toEqual(2);
+    expect(books.length).toEqual(15);
     expect(mockSpyGetAll).toHaveBeenCalled();
     expect(mockSpyGetAll).toHaveBeenCalledTimes(1);
     expect(mockSpyGetAll).toHaveBeenCalledWith('books', {});
@@ -56,14 +44,13 @@ describe('Testing the Book Service', () => {
 
   test('Should return the book list (getBooks), again.', async () => {
     // Arrange
-    mockSpyGetAll.mockResolvedValue([
-      { id: 1, title: 'José Trigo' },
-    ]);
+    const fakeBooks = generateBooks();
+    mockSpyGetAll.mockResolvedValue(fakeBooks);
     // Act
     const books = await bookService.getBooks({});
     console.log(books);
     // Assert
-    expect(books).toHaveLength(1);
-    expect(books[0].title).toEqual('José Trigo');
+    expect(books).toHaveLength(10);
+    expect(books[0].name).toEqual(fakeBooks[0].name);
   });
 });
