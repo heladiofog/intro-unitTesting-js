@@ -7,12 +7,12 @@ describe("Testing Hello World endpoint - e2e", () => {
   beforeAll(() => {
     app = createApp();
     server = app.listen(3001);
-    console.log("Server has been started!");
+    // console.log("Server has been started!");
   });
 
   afterAll(async () => {
     await server.close();
-    console.log('Server has been closed!');
+    // console.log('Server has been closed!');
   });
 
   describe('test for [GET] /', () => {
