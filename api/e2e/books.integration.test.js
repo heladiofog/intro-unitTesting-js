@@ -1,7 +1,7 @@
 // integration test
 const request = require('supertest');
 
-const createApp = require('../src/app');
+// const createApp = require('../src/app');
 
 const { generateBooks } = require('../src/fakes/books.fake');
 
@@ -19,7 +19,7 @@ jest.mock(
 );
 
 // Debido al error: ReferenceError: Cannot access 'mockSpyGetAll' before initialization
-// const createApp = require('../src/app');
+const createApp = require('../src/app');
 
 describe('Testing Hello World endpoint - e2e', () => {
   let app = null;
