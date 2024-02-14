@@ -45,7 +45,7 @@ describe('Testing Books Resource - e2e', () => {
     test('Should return the list of books', async () => {
       // Arrange (Seed Data for testing purposes only)
       // Inserting data to the same DB as the Testing request
-      const seedData = await database.collection(COLLECTION_NAME).insertMany([
+      const seedDataResult = await database.collection(COLLECTION_NAME).insertMany([
         {
           title: 'La Democracia en México',
           year: 1962,
@@ -57,7 +57,7 @@ describe('Testing Books Resource - e2e', () => {
           author: 'Gabriel García Márquez',
         },
       ]);
-      console.log(seedData);
+      console.log(seedDataResult);
       // Act
       return request(app)
         .get('/api/v1/books')
@@ -66,7 +66,7 @@ describe('Testing Books Resource - e2e', () => {
           const { body } = response;
           console.log({ body });
           // Assert
-          expect(body.length).toEqual(seedData.insertedCount);
+          expect(body.length).toEqual(seedDataResult.insertedCount);
         });
     });
   });
