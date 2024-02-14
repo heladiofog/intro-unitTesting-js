@@ -21,7 +21,7 @@ jest.mock(
 // Debido al error: ReferenceError: Cannot access 'mockSpyGetAll' before initialization
 const createApp = require('../src/app');
 
-describe('Testing Hello World endpoint - e2e', () => {
+describe('Testing books resource endpoint (integration)', () => {
   let app = null;
   let server = null;
 
