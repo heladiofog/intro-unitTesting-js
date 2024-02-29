@@ -6,13 +6,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base'],
   parserOptions: {
     ecmaVersion: 'latest',
   },
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
 };

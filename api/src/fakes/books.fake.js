@@ -8,13 +8,13 @@ const generateOneBook = () => ({
 
 const generateBooks = (size) => {
   const limit = size ?? 10;
-  const fakeBooks = []
+  const fakeBooks = [];
 
   for (let i = 0; i < limit; i++) {
     fakeBooks.push(generateOneBook());
   }
 
   return [...fakeBooks];
-}
+};
 
 module.exports = { generateOneBook, generateBooks };

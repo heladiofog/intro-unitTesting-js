@@ -11,7 +11,7 @@ jest.mock(
   () => jest.fn().mockImplementation(() => ({
     getAll: mockSpyGetAll,
     create: () => {},
-  }))
+  })),
 );
 
 describe('Testing the Book Service', () => {
